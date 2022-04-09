@@ -1,0 +1,13 @@
+{
+  "name": "jwt-auth",
+  "version": "1.0.0",
+  "description": "jwt based authentication using express and mongoose",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "Debobrata Pal",
+  "license": "ISC"
+}
