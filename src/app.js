@@ -7,5 +7,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 app.use('/api/users', require('./routes/registerRoute'));
+app.use('/api/users', require('./routes/loginRoute'));
 
 module.exports = app;
