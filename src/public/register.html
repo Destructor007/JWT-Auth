@@ -22,7 +22,7 @@
     
     <!-- Registration Form -->
     <div class="body">
-      <form action="/" method="post" class="regForm" onsubmit="return validation()">
+      <form action="/api/users/register" method="post" class="regForm" onsubmit="return validation()">
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -114,7 +114,7 @@
           <span id="countryError", class="error"></span>
         </div>
         <div class="button">
-          <button type="submit" class="btn-primary">Submit</button>
+          <button type="submit" class="btn-primary" id="submit">Submit</button>
           <button type="reset" class="btn-secondary">Reset</button>
         </div>
       </form>
