@@ -41,11 +41,17 @@ const postUser = async (req, res) => {
   try {
     const token = generateToken(user);
     await user.save();
-    res.status(201).send({
-      message: "User created successfully",
-    });
+    res.cookie("userToken", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+      })
+      .status(201)
+      .json({
+        message: "User created successfully"
+      });
+    console.log(token);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(500).send(error);
   }
 };
 

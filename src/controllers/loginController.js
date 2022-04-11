@@ -18,10 +18,11 @@ const login = async (req, res) => {
         });
     }
     const token = generateToken(user);
-    console.log(token);
-    res.status(200).json({
-        message: "Login successful",
-        token,
+    res.cookie("userToken", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+      }).status(200).json({
+        message: "Login successful"
     });
 }
 
