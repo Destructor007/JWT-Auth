@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const generateToken = (user) => {
     const payload = {
-        _id: user._id,
+
         username: user.username,
     },
     options = {
@@ -15,23 +15,11 @@ const generateToken = (user) => {
 };
 
 const verifyToken = (req, res, next) => {
-    const { authorization } = req.headers;
-    if (authorization && authorization.startsWith('Bearer ')) {
-        const token = authorization.replace('Bearer ', '');
-        jwt.verify(token, ACCESS_TOKEN_SECRET, (err, decoded) => {
-            if (err) {
-                return res.status(401).json({
-                    message: 'Unauthorized'
-                });
-            }
-            req.user = decoded;
-            next();
-        });
-    } else {
-        return res.status(401).json({
-            message: 'Unauthorized'
-        });
-    }
+    const token = req.cookies.userToken;
+    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, decoded) => {
+        req.user = decoded;
+        next();
+    });
 };
 
-module.exports = { generateToken };
+module.exports = { generateToken, verifyToken };

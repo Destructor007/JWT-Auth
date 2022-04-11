@@ -1,7 +1,7 @@
 const User = require("../models/users");
 
 const bcrypt = require("bcrypt");
-const { generateToken } = require("../middleware/token");
+const { generateToken, verifyToken } = require("../middleware/token");
 
 const login = async (req, res) => {
     const { uname, psw } = req.body;
@@ -17,13 +17,7 @@ const login = async (req, res) => {
         message: "Incorrect password",
         });
     }
-    const token = generateToken(user);
-    res.cookie("userToken", token, {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-      }).status(200).json({
-        message: "Login successful"
-    });
+    //Function here
 }
 
 module.exports = { login };
