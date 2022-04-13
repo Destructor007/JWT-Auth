@@ -2,6 +2,8 @@
   --violet: #8c63d2;
   --light-violet: #d5b3ff;
   --blue: #0039d4;
+  --red: #dc0000;
+  --green: #15a415;
   --white: #fff;
   --black: #000;
   --gray: #8a8c90;
@@ -61,12 +63,4 @@
   background: var(--violet);
   color: var(--white);
   transition: all 0.3s ease-in-out;
-}
-
-.error {
-  color: red;
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-shadow: #000 1px 1px 1px;
-  margin-left: 10px;
 }

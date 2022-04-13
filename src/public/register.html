@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registration</title>
-    <link rel="stylesheet" href="../assets/css/main.css" />
-    <link rel="stylesheet" href="../assets/css/utils.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/utils.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
     
@@ -14,7 +15,7 @@
     <div class="header">
       <div class="navbar">
         <ul>
-          <li><a href="#">Login</a></li>
+          <li><a onclick="document.getElementById('login2').style.display='block'">Login</a></li>
           <li><a href="./register.html">Registration</a></li>
         </ul>
       </div>
@@ -22,7 +23,7 @@
     
     <!-- Registration Form -->
     <div class="body">
-      <form action="/api/users/register" method="post" class="regForm" >
+      <form action="/api/users/register" method="post" class="regForm"  id="form">
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -30,8 +31,12 @@
             name="username"
             id="username"
             class="form-control"
+            placeholder="username"
+            required
           />
-          <span id="userError", class="error"></span>
+          <i class="fa-solid fa-circle-check"></i>
+          <i class="fa-solid fa-circle-xmark"></i>
+          <p>Error Message</p>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -40,8 +45,12 @@
             name="password"
             id="password"
             class="form-control"
+            placeholder="password"
+            required
           />
-          <span id="passError", class="error"></span>
+          <i class="fa-solid fa-circle-check"></i>
+          <i class="fa-solid fa-circle-xmark"></i>
+          <p>Error Message</p>
         </div>
         <div class="form-group">
           <label for="confirmPassword">Confirm Password</label>
@@ -50,13 +59,19 @@
             name="confirmPassword"
             id="confirmPassword"
             class="form-control"
+            placeholder="password"
+            required
           />
-          <span id="conPassError", class="error"></span>
+          <i class="fa-solid fa-circle-check"></i>
+          <i class="fa-solid fa-circle-xmark"></i>
+          <p>Error Message</p>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" class="form-control" />
-          <span id="emailError", class="error"></span>
+          <input type="text" name="email" id="email" class="form-control" placeholder="email" required/>
+          <i class="fa-solid fa-circle-check"></i>
+          <i class="fa-solid fa-circle-xmark"></i>
+          <p>Error Message</p>
         </div>
         <div class="form-group">
           <label for="firstName">First Name</label>
@@ -65,8 +80,9 @@
             name="firstName"
             id="firstName"
             class="form-control"
+            placeholder="first name"
+            required
           />
-          <span id="firstNameError", class="error"></span>
         </div>
         <div class="form-group">
           <label for="lastName">Last Name</label>
@@ -75,28 +91,28 @@
             name="lastName"
             id="lastName"
             class="form-control"
+            placeholder="last name"
+            required
           />
-          <span id="lastNameError", class="error"></span>
         </div>
         <div class="form-group">
           <label for="phone">Phone</label>
-          <input type="text" name="phone" id="phone" class="form-control" />
-          <span id="phoneError", class="error"></span>
+          <input type="text" name="phone" id="phone" class="form-control" placeholder="contact" required/>
+          <i class="fa-solid fa-circle-check"></i>
+          <i class="fa-solid fa-circle-xmark"></i>
+          <p>Error Message</p>
         </div>
         <div class="form-group">
           <label for="address">Address</label>
-          <input type="text" name="address" id="address" class="form-control" />
-          <span id="addressError", class="error"></span>
+          <input type="text" name="address" id="address" class="form-control" placeholder="address" required/>
         </div>
         <div class="form-group">
           <label for="city">City</label>
-          <input type="text" name="city" id="city" class="form-control" />
-          <span id="cityError", class="error"></span>
+          <input type="text" name="city" id="city" class="form-control" placeholder="city" required/>
         </div>
         <div class="form-group">
           <label for="state">State</label>
-          <input type="text" name="state" id="state" class="form- control" />
-          <span id="stateError", class="error"></span>
+          <input type="text" name="state" id="state" class="form- control" placeholder="state" required/>
         </div>
         <div class="form-group">
           <label for="pincode">pin code</label>
@@ -105,20 +121,53 @@
             name="pincode"
             id="pincode"
             class="form-control"
+            placeholder="pincode"
+            required
           />
-          <span id="pincodeError", class="error"></span>
+          <i class="fa-solid fa-circle-check"></i>
+          <i class="fa-solid fa-circle-xmark"></i>
+          <p>Error Message</p>
         </div>
         <div class="form-group">
           <label for="country">Country</label>
-          <input type="text" name="country" id="country" class="form-control" />
-          <span id="countryError", class="error"></span>
+          <input type="text" name="country" id="country" class="form-control" placeholder="country" required/>
         </div>
         <div class="button">
-          <button type="submit" class="btn-primary" id="submit">Submit</button>
+          <button type="submit" class="btn-primary">Submit</button>
           <button type="reset" class="btn-secondary">Reset</button>
         </div>
       </form>
     </div>
-    <!-- <script src="./assets/scripts/valid.js"></script> -->
+
+    <!-- Login Form -->
+    <div id="login2" class="modal">
+      <form class="modal-content animate" action="/api/users/login" method="post">
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('login2').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+    
+        <div class="container">
+          <div class="form-group">
+            <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="uname" required>
+          </div>
+    
+          <div class="form-group">
+            <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+          </div>
+            
+          <button type="submit" class="btn-primary">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+
+    <script src="./assets/scripts/valid.js"></script>
+    <script src="./assets/scripts/index.js"></script>
+
+    <i class="fa-solid fa-circle-check"></i>
+    <i class="fa-solid fa-circle-xmark"></i>
   </body>
 </html>

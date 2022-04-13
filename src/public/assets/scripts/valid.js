@@ -1,126 +1,116 @@
+const form = document.querySelector('#form');
+const username = document.querySelector('#username');
+const email = document.querySelector('#email');
+const password = document.querySelector('#password');
+const confirmPassword = document.querySelector('#confirmPassword');
+const phone = document.querySelector('#phone');
+const pincode = document.querySelector('#pincode');
+
+form.addEventListener('submit', (e) => {
+  validation();
+  
+  if (isValidForm()) {
+    form.submit();
+  } else {
+    e.preventDefault()
+  }
+})
+
+function isValidForm() {
+  const inputs = form.querySelectorAll('.form-group');
+  let valid = true;
+  inputs.forEach((input) => {
+    if (input.classList.contains('wrong')) {
+      valid = false;
+    }
+    return valid;
+  })
+}
+
+
 function validation() {
-  var username = document.getElementById("username").value;
-  var password = document.getElementById("password").value;
-  var confirmPassword = document.getElementById("confirmPassword").value;
-  var email = document.getElementById("email").value;
-  const firstName = document.getElementById("firstName").value;
-  const lastName = document.getElementById("lastName").value;
-  var phone = document.getElementById("phone").value;
-  var address = document.getElementById("address").value;
-  var city = document.getElementById("city").value;
-  var state = document.getElementById("state").value;
-  var pincode = document.getElementById("pincode").value;
-  var country = document.getElementById("country").value;
-
-  var checkUsername = /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-  var checkPassword =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/;
-  var checkEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  var checkPhone = /^[6789][0-9]{9}$/;
-  var checkPincode = /^[0-9]{6}$/;
-
-  if (checkUsername.test(username)) {
-    document.getElementById("userError").innerHTML = "";
-  } else if (username == "") {
-    document.getElementById("userError").innerHTML = "Please enter Username";
+  if (isValidUsername(username.value)) {
+    setSuccess(username);
   } else {
-    document.getElementById("userError").innerHTML = "Username is not valid";
-    return false;
+    setError(username, 'Username is not valid');
+  }
+  
+  if (isValidPassword(password.value)) {
+    setSuccess(password);
+  } else {
+    setError(password, 'Password must be 8-10 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character');
   }
 
-  if (checkPassword.test(password)) {
-    document.getElementById("passError").innerHTML = "";
-  } else if (password == "") {
-    document.getElementById("passError").innerHTML = "Please enter Password";
+  if (isValidConfirmPassword(password.value, confirmPassword.value)) {
+    setSuccess(confirmPassword);
   } else {
-    document.getElementById("passError").innerHTML = "Password must contain: <br> one uppercase, <br> one lowercase, <br>one number, <br> one special character";
-    return false;
+    setError(confirmPassword, 'Password does not match');
+  }
+  
+  if (isValidEmail(email.value)) {
+    setSuccess(email);
+  } else {
+    setError(email, 'Please enter a valid email');
   }
 
-  if (password == confirmPassword) {
-    document.getElementById("conPassError").innerHTML = "";
-  } else if (confirmPassword == "") {
-    document.getElementById("conPassError").innerHTML =
-      "Please enter Confirm Password";
-  } else {
-    document.getElementById("conPassError").innerHTML =
-      "Password does not match";
-    return false;
+  if (isValidPhone(phone.value)) {
+    setSuccess(phone);
+  }
+  else {
+    setError(phone, 'Please enter a valid phone number');
   }
 
-  if (checkEmail.test(email)) {
-    document.getElementById("emailError").innerHTML = "";
-  } else if (email == "") {
-    document.getElementById("emailError").innerHTML = "Please enter Email";
-  } else {
-    document.getElementById("emailError").innerHTML = "Email is not valid";
-    return false;
+  if (isValidPin(pincode.value)) {
+    setSuccess(pincode);
   }
+  else {
+    setError(pincode, 'Please enter a valid pincode');
+  }
+}
 
-  if (firstName == "") {
-    document.getElementById("firstNameError").innerHTML =
-      "Please enter First Name";
-    return false;
-  } else {
-    document.getElementById("firstNameError").innerHTML = "";
-  }
+function isValidUsername(username) {
+  const checkUsername = /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+  return checkUsername.test(username);
+}
 
-  if (lastName == "") {
-    document.getElementById("lastNameError").innerHTML =
-      "Please enter Last Name";
-    return false;
-  } else {
-    document.getElementById("lastNameError").innerHTML = "";
-  }
+function isValidPassword(password) {
+  const checkPassword =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/;
+  return checkPassword.test(password);
+}
 
-  if (checkPhone.test(phone)) {
-    document.getElementById("phoneError").innerHTML = "";
-  } else if (phone == "") {
-    document.getElementById("phoneError").innerHTML =
-      "Please enter Phone number";
-  } else {
-    document.getElementById("phoneError").innerHTML =
-      "Phone number is not valid";
-    return false;
-  }
+function isValidConfirmPassword(password, confirmPassword) {
+  return password === confirmPassword;
+}
 
-  if (address == "") {
-    document.getElementById("addressError").innerHTML =
-      "Please enter Address";
-    return false;
-  } else {
-    document.getElementById("addressError").innerHTML = "";
-  }
+function isValidEmail (email) {
+  const checkEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return checkEmail.test(email);
+}
 
-  if (city == "") {
-    document.getElementById("cityError").innerHTML = "Please enter City";
-    return false;
-  } else {
-    document.getElementById("cityError").innerHTML = "";
-  }
+function isValidPhone(phone) {
+  const checkPhone = /^[6789][0-9]{9}$/;
+  return checkPhone.test(phone);
+}
+function isValidPin(pincode) {
+  const checkPin = /^[0-9]{6}$/;
+  return checkPin.test(pincode);
+}
 
-  if (state == "") {
-    document.getElementById("stateError").innerHTML = "Please enter State";
-    return false;
-  } else {
-    document.getElementById("stateError").innerHTML = "";
+function setError(element, errorMessage) {
+  const parent = element.parentElement;
+  if (parent.classList.contains('success')) {
+    parent.classList.remove('success');
   }
+  parent.classList.add('wrong');
+  const paragraph = parent.querySelector('p');
+  paragraph.textContent = errorMessage;
+}
 
-  if (checkPincode.test(pincode)) {
-    document.getElementById("pincodeError").innerHTML = "";
-  } else if (pincode == "") {
-    document.getElementById("pincodeError").innerHTML =
-      "Please enter Pincode";
-  } else {
-    document.getElementById("pincodeError").innerHTML =
-      "Pincode is not valid";
-    return false;
+function setSuccess(element) {
+  const parent = element.parentElement;
+  if (parent.classList.contains('wrong')) {
+    parent.classList.remove('wrong');
   }
-
-  if (country == "") {
-    document.getElementById("countryError").innerHTML = "Please enter Country";
-    return false;
-  } else {
-    document.getElementById("countryError").innerHTML = "";
-  }
+  parent.classList.add('success');
 }
