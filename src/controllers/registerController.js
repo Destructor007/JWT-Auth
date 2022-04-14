@@ -43,7 +43,7 @@ const postUser = async (req, res) => {
     await user.save();
     res.cookie("userToken", token, {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60,
       })
       .status(201)
       .json({

@@ -1,34 +1,44 @@
+require("dotenv").config({ path: "../env/.env" });
+const { ACCESS_TOKEN_SECRET } = process.env;
+
 const User = require("../models/users");
 
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { generateToken, verifyToken } = require("../middleware/token");
+const { generateToken } = require("../middleware/token");
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const { uname, psw } = req.body;
-  const user = await User.findOne({ username: uname });
-  if (!user) {
-    return res.status(400).json({
-      message: "User not found",
-    });
-  }
-  const isMatch = await bcrypt.compare(psw, user.password);
-  if (!isMatch) {
-    return res.status(400).json({
-      message: "Incorrect password",
-    });
-  }
-  const hasToken = req.cookies.userToken;
-  if (hasToken) {
-    await verifyToken(req, res);
-    return res.redirect("/");
-  } else {
-    const token = generateToken(user);
-    res.cookie("userToken", token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7,
-    });
-    return res.status(200).json({
-      message: "User logged in successfully",
+  try {
+    const user = await User.findOne({ username: uname });
+    const isMatch = await bcrypt.compare(psw, user.password);
+    if (!user) {
+      return res.status(400).json({
+        message: "User not found",
+      });
+    } else if (!isMatch) {
+      return res.status(400).json({
+        message: "Incorrect password",
+      });
+    } else {
+      const token = req.cookies.userToken;
+      if (token) {
+        const verifyToken = jwt.verify(token, ACCESS_TOKEN_SECRET, (err, decoded) => {
+          req.user = decoded;
+      })
+      res.json({message: 'User logged in successfully with old token'})
+      } else {
+        const newToken = generateToken(user);
+        res.cookie("userToken", newToken, {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60,
+          }).send("Logged in with new token");
+        console.log(newToken);
+      }
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "Internal server error",
     });
   }
 };

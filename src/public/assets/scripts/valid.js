@@ -6,51 +6,33 @@ const confirmPassword = document.querySelector('#confirmPassword');
 const phone = document.querySelector('#phone');
 const pincode = document.querySelector('#pincode');
 
-form.addEventListener('submit', (e) => {
-  validation();
-  
-  if (isValidForm()) {
-    form.submit();
-  } else {
-    e.preventDefault()
-  }
-})
-
-function isValidForm() {
-  const inputs = form.querySelectorAll('.form-group');
-  let valid = true;
-  inputs.forEach((input) => {
-    if (input.classList.contains('wrong')) {
-      valid = false;
-    }
-    return valid;
-  })
-}
-
-
 function validation() {
   if (isValidUsername(username.value)) {
     setSuccess(username);
   } else {
     setError(username, 'Username is not valid');
+    return false;
   }
   
   if (isValidPassword(password.value)) {
     setSuccess(password);
   } else {
     setError(password, 'Password must be 8-10 characters long, contain at least one uppercase letter, one lowercase letter, one number and one special character');
+    return false;
   }
 
   if (isValidConfirmPassword(password.value, confirmPassword.value)) {
     setSuccess(confirmPassword);
   } else {
     setError(confirmPassword, 'Password does not match');
+    return false;
   }
   
   if (isValidEmail(email.value)) {
     setSuccess(email);
   } else {
     setError(email, 'Please enter a valid email');
+    return false;
   }
 
   if (isValidPhone(phone.value)) {
@@ -58,6 +40,7 @@ function validation() {
   }
   else {
     setError(phone, 'Please enter a valid phone number');
+    return false;
   }
 
   if (isValidPin(pincode.value)) {
@@ -65,6 +48,7 @@ function validation() {
   }
   else {
     setError(pincode, 'Please enter a valid pincode');
+    return false;
   }
 }
 

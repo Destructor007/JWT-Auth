@@ -23,7 +23,7 @@
     
     <!-- Registration Form -->
     <div class="body">
-      <form action="/api/users/register" method="post" class="regForm"  id="form">
+      <form action="/api/users/register" method="post" class="regForm"  id="form" onsubmit="return validation()">
         <div class="form-group">
           <label for="username">Username</label>
           <input
@@ -166,8 +166,5 @@
 
     <script src="./assets/scripts/valid.js"></script>
     <script src="./assets/scripts/index.js"></script>
-
-    <i class="fa-solid fa-circle-check"></i>
-    <i class="fa-solid fa-circle-xmark"></i>
   </body>
 </html>

@@ -13,13 +13,4 @@ const generateToken = (user) => {
     };
     return jwt.sign(payload, ACCESS_TOKEN_SECRET, options);
 };
-
-const verifyToken = (req, res, next) => {
-    const token = req.cookies.userToken;
-    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, decoded) => {
-        req.user = decoded;
-        next();
-    });
-};
-
-module.exports = { generateToken, verifyToken };
+module.exports = { generateToken };
