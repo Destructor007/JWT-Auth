@@ -24,9 +24,14 @@ const login = async (req, res, next) => {
       const token = req.cookies.userToken;
       if (token) {
         const verifyToken = jwt.verify(token, ACCESS_TOKEN_SECRET, (err, decoded) => {
-          req.user = decoded;
+          if (err) {
+            return res.status(400).json({
+              message: "Invalid token",
+            });
+          } else {
+            res.json({message: 'User logged in successfully with old token'})
+          }
       })
-      res.json({message: 'User logged in successfully with old token'})
       } else {
         const newToken = generateToken(user);
         res.cookie("userToken", newToken, {
